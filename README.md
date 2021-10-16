@@ -12,7 +12,7 @@ Aproveito também para esclarecer partes gerais do código.
 
 Outros pontos:
 
-    - No endpoint atletas/{id} devolve a informação relativa ao atleta e junto com esta mesma as modalidades e os seus atributos nessa mesma. Para uma questão de legibilidade organizei a key pelo nome da modalidade e os seus values os atributos, mas diga-mos "no mundo real", na minha opinião, deveria estar organizado por id da modalidade como key, e os id's dos atributos como valor, para no frontend ser mais prático dar o display destes atributos.
+    - No endpoint atletas/{id} devolve a informação relativa ao atleta e junto com esta mesma as modalidades e os seus atributos nessa mesma. Para uma questão de legibilidade organizei a key pelo nome da modalidade e os seus values os atributos, mas diga-mos que "no mundo real", na minha opinião, deveria estar organizado por id da modalidade como key, e os id's dos atributos como valor, para no frontend ser mais prático dar o display destes atributos.
     - Relativamente à parte de guardar informação relevante do atleta:
                                             Por questões de demonstração será especificado o "user_id" de quem insere as notas/questões, mas na prática deveria estar implementado autenticação para obter qual o utilizador que está a inserir esta informação
 
