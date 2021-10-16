@@ -18,7 +18,7 @@ Outros pontos:
 
 Config do postman em NEX.postman_collection.json
 
-###Instalação
+### Instalação
 
 1. cp .env.example .env && docker-compose up -d --build
 2. make php-bash
