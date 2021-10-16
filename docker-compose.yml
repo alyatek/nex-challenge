@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - 8090:80
+    volumes:
+      - ./app/:/var/www
+      - ./configs/nginx/:/etc/nginx/conf.d/
+    networks:
+      - main
+
+  app:
+    build:
+      context: .
+      dockerfile: ./configs/php/Dockerfile
+    container_name: app
+    volumes:
+      - ./app/:/var/www
+    networks:
+      - main
+
+  mysql:
+    image: mysql:5.7
+    container_name: db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PW}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    env_file:
+      - ./.env
+    networks:
+      - main
+
+networks:
+  main:
+    driver: bridge

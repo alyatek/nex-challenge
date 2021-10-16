@@ -1,0 +1,517 @@
+{
+	"info": {
+		"_postman_id": "3680ceab-c6e1-46ac-a32c-5731734705f2",
+		"name": "NEX",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "atleta",
+			"item": [
+				{
+					"name": "update atleta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"cesaaaaar\",\n    \"nif\": \"245824820\",\n    \"morada\": \"morada\",\n    \"telefone\": \"9127191994\",\n    \"email\": \"mail@mail.com\",\n    \"data_nascimento\": \"1997-09-25\",\n    \"altura\": \"1.95\",\n    \"peso\": \"100\",\n    \"modalidade_atributos\": {\n        \"2\" : [1]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/atletas/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"atletas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar atleta",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "localhost:8090/atletas/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"atletas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete atleta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nome",
+									"value": "manel",
+									"type": "text"
+								},
+								{
+									"key": "nif",
+									"value": "245824820",
+									"type": "text"
+								},
+								{
+									"key": "morada",
+									"value": "morada",
+									"type": "text"
+								},
+								{
+									"key": "telefone",
+									"value": "912791994",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "cesar@cesar.pt",
+									"type": "text"
+								},
+								{
+									"key": "data_nascimento",
+									"value": "1997-09-25",
+									"type": "text"
+								},
+								{
+									"key": "altura",
+									"value": "1.92",
+									"type": "text"
+								},
+								{
+									"key": "peso",
+									"value": "95",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8090/atletas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"atletas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inserir atleta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"cesar\",\n    \"nif\": \"246423430\",\n    \"morada\": \"morada\",\n    \"telefone\": \"9126174993\",\n    \"email\": \"mail@mail.com\",\n    \"data_nascimento\": \"1997-09-25\",\n    \"altura\": \"1.95\",\n    \"peso\": \"100\",\n    \"modalidade_atributos\": {\n        \"1\" : [3]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/atletas",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"atletas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "modalidade",
+			"item": [
+				{
+					"name": "atualizar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\" : \"basket\",\n    \"atributos\" : [1,2]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/modalidades/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"modalidades",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nova modalidade",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\" : \"fute\",\n    \"atributos\" : [1]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/modalidades",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"modalidades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove modalidade",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\" : \"futebol\",\n    \"atributos\" : [ 1]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8090/modalidades/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"modalidades",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar modalidade",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/modalidades/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"modalidades",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "atributo",
+			"item": [
+				{
+					"name": "encontrar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/atributos/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"atributos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "criar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "maos",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8090/atributos",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"atributos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nome",
+									"value": "pe esquedo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8090/atributos/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"atributos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nome",
+									"value": "pe esquerdo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8090/atributos/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"atributos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notas",
+			"item": [
+				{
+					"name": "criar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "titulo",
+									"value": "hie",
+									"type": "text"
+								},
+								{
+									"key": "texto",
+									"value": "hello to me for you right now",
+									"type": "text"
+								},
+								{
+									"key": "atleta_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8090/notas",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"notas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titulo",
+									"value": "bye",
+									"type": "text"
+								},
+								{
+									"key": "texto",
+									"value": "goodbye for you right now",
+									"type": "text"
+								},
+								{
+									"key": "atleta_id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8090/notas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"notas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "apagar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "titulo",
+									"value": "hi",
+									"type": "text"
+								},
+								{
+									"key": "texto",
+									"value": "hello",
+									"type": "text"
+								},
+								{
+									"key": "atleta_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8090/notas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"notas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "encontrar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8090/notas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"notas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
