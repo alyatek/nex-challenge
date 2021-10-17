@@ -8,6 +8,7 @@ use App\Traits\NotaValidation;
 class NotaController extends Controller
 {
     use NotaValidation;
+
     public function __construct(NotaRepository $repository)
     {
         $this->repository = $repository;
@@ -33,6 +34,6 @@ class NotaController extends Controller
 
     public function delete(int $id)
     {
-        return response()->json(["status" => $this->repository->delete($id)]);
+        return response()->json($this->repository->delete($id));
     }
 }

@@ -3,11 +3,21 @@
 namespace App\Repository;
 
 use App\Classes\Nota;
+use App\Interfaces\NotaCRUDInterface;
 use App\Models\Atleta;
+use App\Models\Nota as ModelsNota;
 
-class NotaRepository extends Nota
+class NotaRepository extends Nota implements NotaCRUDInterface
 {
-    public function create(string $titulo, string $texto, int $atletaId)
+    /**
+     * cria uma nota se o atleta respetivo existir
+     *
+     * @param string $titulo
+     * @param string $texto
+     * @param integer $atletaId
+     * @return void
+     */
+    public function create(string $titulo, string $texto, int $atletaId): array
     {
         $this->setTitulo($titulo);
         $this->setTexto($texto);
@@ -18,17 +28,31 @@ class NotaRepository extends Nota
 
         $this->save();
 
-        return $this->getNota();
+        return $this->getNota()->toArray();
     }
 
-    public function find(int $int)
+    /**
+     * encontra uma nota se existir
+     *
+     * @param integer $int
+     * @return void
+     */
+    public function find(int $int): array
     {
         if (!$nota = $this->model->find($int)) return ["error" => "Nao encontrado"];
 
-        return $nota;
+        return $nota->toArray();
     }
 
-    public function update(int $id, string $titulo, string $texto)
+    /**
+     * atualiza uma nota
+     *
+     * @param integer $id
+     * @param string $titulo
+     * @param string $texto
+     * @return void
+     */
+    public function update(int $id, string $titulo, string $texto): array
     {
         if (!$nota = $this->model->find($id)) return ["error" => "Nao encontrado"];
 
@@ -37,15 +61,26 @@ class NotaRepository extends Nota
 
         if ($nota->isDirty()) $nota->save();
 
-        return $nota;
+        return $nota->toArray();
     }
 
-    public function delete(int $id)
+    /**
+     * apaga uma respetiva nota se existir
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function delete(int $id): array
     {
         if (!$nota = $this->model->find($id)) return ["error" => "Nao encontrado"];
-        return $nota->delete();
+        return ["status" => $nota->delete()];
     }
 
+    /**
+     * guarda na bd a nota
+     *
+     * @return void
+     */
     private function save()
     {
         $this->model->titulo = $this->getTitulo();

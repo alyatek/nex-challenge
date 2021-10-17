@@ -3,10 +3,13 @@
 namespace App\Repository;
 
 use App\Classes\Atleta;
+use App\Interfaces\AtletaCRUDInterface;
+use App\Models\Atleta as ModelsAtleta;
 use App\Models\AtletasModalidadeAtributo as ModelsAtletasModalidadeAtributo;
 use App\Models\ModalidadeAtributos;
+use App\Models\Nota;
 
-class AtletaRepository extends Atleta
+class AtletaRepository extends Atleta implements AtletaCRUDInterface
 {
     /**
      * Define os atributos para criar um atleta
@@ -31,7 +34,7 @@ class AtletaRepository extends Atleta
         float $altura,
         int $peso,
         array $modalidadeAtributos
-    ) {
+    ): array {
         $this->setNome($nome);
         $this->setNif($nif);
         $this->setMorada($morada);
@@ -45,7 +48,7 @@ class AtletaRepository extends Atleta
         $this->setModalidadeAtributos($modalidadeAtributos);
         $this->saveModalidadeAtributos();
 
-        return $this->model->with('modalidadeAtributos')->find($this->getAtleta()->id);
+        return $this->model->with('modalidadeAtributos')->find($this->getAtleta()->id)->toArray();
     }
 
     /**
@@ -56,8 +59,6 @@ class AtletaRepository extends Atleta
      */
     public function find(int $id): array
     {
-        // dd($this->model->find($id));
-
         if (!$atleta = $this->model->find($id)) return ["error" => "Nao encontrado"];
 
         $atleta['modalidade_atributos'] = $this->model->atletaModalidadeAtributos($id);
@@ -70,7 +71,7 @@ class AtletaRepository extends Atleta
      *
      * @return void
      */
-    public function update(int $id, array $data, array $modalidadeAtributos)
+    public function update(int $id, array $data, array $modalidadeAtributos): array
     {
         if (!$atleta = $this->model->find($id)) return ["error" => "Nao encontrado"];
 
@@ -78,31 +79,30 @@ class AtletaRepository extends Atleta
             $atleta->$field = $value;
         }
 
-        // if (!$atleta->isDirty()) {
-        //     return ["error" => "Nada modificado"];
-        // }
-
         $atleta->save();
 
         $this->setAtleta($atleta);
 
+        // remove as modalidades e atribui as novas
         $this->removeModalidadeAtributos();
         $this->setModalidadeAtributos($modalidadeAtributos);
         $this->saveModalidadeAtributos();
 
-        return $this->getAtleta();
+        return $this->getAtleta()->toArray();
     }
 
-    public function delete(int $id)
+    public function delete(int $id): array
     {
         if (!$atleta = $this->model->find($id)) return ["error" => "Atleta nao encontrado"];
 
         $this->setAtleta($atleta);
+
         // remover os atributos
         $this->removeModalidadeAtributos();
         // remover os comentarios
+        $this->removeComentariosDoAtleta();
 
-        return true;
+        return ["status" => $atleta->delete()];
     }
 
 
@@ -111,7 +111,7 @@ class AtletaRepository extends Atleta
      *
      * @return void
      */
-    protected function save()
+    private function save()
     {
         $this->model->nome = $this->getNome();
         $this->model->nif = $this->getNif();
@@ -127,26 +127,53 @@ class AtletaRepository extends Atleta
         $this->setAtleta($this->model->find($this->model->id));
     }
 
-    protected function saveModalidadeAtributos()
+    /**
+     * Guarda os atributos das modalidades respetivos ao atleta
+     *
+     * @return void
+     */
+    private function saveModalidadeAtributos()
     {
+        // vai buscar as modalidade e atributos que vieram do request
         $modalidadeAtributos = $this->getModalidadeAtributos();
+
         $modalidadesAtributosId = [];
 
+        // para cada modalidade encontra os atributos respetivos na base de dados
         foreach ($modalidadeAtributos as $modalidade => $atributos) {
             $modalidadesAtributosId[] = ModalidadeAtributos::where('modalidade_id', $modalidade)->whereIn('atributo_id', $atributos)->get(['id'])->toArray();
         }
 
+        // mapeia para a key ser o nome da coluna
         $modalidadesAtributosId = collect($modalidadesAtributosId)->flatten()->map(function ($item) {
             return ["modalidade_atributo_id" => $item];
         });
 
+        // cria os respetivos vindo do array
         $this->getAtleta()->modalidadeAtributos()->createMany($modalidadesAtributosId);
     }
 
-    protected function removeModalidadeAtributos()
+    /**
+     * Remove as modalidadesAtributos do atleta
+     *
+     * @return void
+     */
+    private function removeModalidadeAtributos(): bool
     {
         $atleta = $this->getAtleta();
 
         return ModelsAtletasModalidadeAtributo::where('atleta_id', $atleta->id)->delete();
+    }
+
+    /**
+     * Remove todos os respetivos comentarios/notas de um atleta feitos por 
+     *
+     * @return void
+     */
+    private function removeComentariosDoAtleta()
+    {
+        if ($getAll = Nota::where('atleta_id', $this->getAtleta()->id)) {
+            return $getAll->delete();
+        }
     }
 }

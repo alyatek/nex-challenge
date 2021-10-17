@@ -3,9 +3,11 @@
 namespace App\Repository;
 
 use App\Classes\Modalidade;
+use App\Interfaces\ModalidadeCRUDInterface;
+use App\Models\Modalidade as ModelsModalidade;
 use App\Models\ModalidadeAtributos;
 
-class ModalidadeRepository extends Modalidade
+class ModalidadeRepository extends Modalidade implements ModalidadeCRUDInterface
 {
     /**
      * cria um recurso e os atributos
@@ -14,7 +16,7 @@ class ModalidadeRepository extends Modalidade
      * @param array $atributos
      * @return void
      */
-    public function create(string $name, array $atributos)
+    public function create(string $name, array $atributos): array
     {
         // atribui as variaveis para utilizacao
         $this->setName($name);
@@ -23,26 +25,26 @@ class ModalidadeRepository extends Modalidade
         $this->save(); // cria o modelo 
         $this->saveAtributos(); // cria os atributos
 
-        return $this->getModalidade();
+        return $this->getModalidade()->toArray();
     }
 
     /** encontra um recurso
      * 
      */
-    public function find(int $id)
+    public function find(int $id): array
     {
         if (!$modalidade = $this->model->with('atributosWithName')->find($id)) {
             return ["error" => "Nao encontrado"];
         }
 
-        return $modalidade;
+        return $modalidade->toArray();
     }
 
     /**
      * atualiza um recurso e os atributos
      */
 
-    public function update($id, $nome, $atributos)
+    public function update(int $id, string $nome, array $atributos): array
     {
         if (!$modalidade = $this->model->with('atributos')->find($id)) {
             return ["error" => "Nao encontrado"];
@@ -64,10 +66,10 @@ class ModalidadeRepository extends Modalidade
         $this->saveAtributos();
 
         // vai buscar o model com a mais recente atualizacao
-        return $this->model->with('atributosWithName')->find($modalidade->id);
+        return $this->model->with('atributosWithName')->find($modalidade->id)->toArray();
     }
 
-    public function delete(int $id)
+    public function delete(int $id): array
     {
         if (!$modalidade = $this->model->with('atributos')->find($id)) {
             return ["error" => "Nao encontrado"];
