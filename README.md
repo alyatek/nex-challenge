@@ -2,6 +2,8 @@
 
 Antes de mais aproveito para agradecer esta oportunidade.
 
+Construido em Lumen (https://lumen.laravel.com/) para facilitar o processo de migrações de base de dados e o boiler plate de routing e as respetivas variaveis.
+
 Aproveito também para esclarecer partes gerais do código.
 
     * App\Http\Controllers - Utilizo apenas como um meio para validar e chamar as funções gerais de acordo com a funcionalidade
