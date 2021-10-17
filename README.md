@@ -2,7 +2,10 @@
 
 Antes de mais aproveito para agradecer esta oportunidade.
 
-Construido em Lumen (https://lumen.laravel.com/) para facilitar o processo de migrações de base de dados e o boiler plate de routing e as respetivas variaveis.
+Desenvolvido em :
+
+    * Docker (nginx, php, mysql)
+    * Lumen (https://lumen.laravel.com/) para facilitar o processo de migrações de base de dados e o boiler plate de routing e as respetivas variaveis.
 
 Aproveito também para esclarecer partes gerais do código.
 
@@ -22,7 +25,7 @@ Config do postman em NEX.postman_collection.json
 
 ### Instalação
 
-1. cp .env.example .env && docker-compose up -d --build
+1. cp .env.example .env && make install
 2. make php-bash
 3. cp .env.example .env && composer install
 4. php artisan migrate
